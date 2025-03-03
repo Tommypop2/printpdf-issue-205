@@ -17,8 +17,7 @@ fn main() {
     let page1_contents = vec![
         Op::SetLineHeight { lh: Pt(12.0) },
         Op::SetTextCursor { pos: text_pos },
-        // Op::WriteCodepoints { ... }
-        // Op::WriteCodepointsWithKerning { ... }
+				// Red Text
         Op::SetFillColor {
             col: color::Color::Rgb(Rgb {
                 r: 255.0,
@@ -39,7 +38,57 @@ fn main() {
             mode: TextRenderingMode::Fill,
         },
         Op::WriteText {
-            items: vec![TextItem::Text("I'd expect this text to be red!".into())],
+            items: vec![TextItem::Text(
+                "Text rendered with rendering mode: fill".into(),
+            )],
+            size: Pt(12.0),
+            font: font_id.clone(),
+        },
+        Op::AddLineBreak,
+        Op::SetTextRenderingMode {
+            mode: TextRenderingMode::Stroke,
+        },
+        Op::WriteText {
+            items: vec![TextItem::Text(
+                "Text rendered with rendering mode: stroke".into(),
+            )],
+            size: Pt(12.0),
+            font: font_id.clone(),
+        },
+
+				// Blue Text
+				Op::AddLineBreak,
+        Op::SetFillColor {
+            col: color::Color::Rgb(Rgb {
+                r: 0.0,
+                g: 0.0,
+                b: 255.0,
+                icc_profile: None,
+            }),
+        },
+        Op::SetOutlineColor {
+            col: color::Color::Rgb(Rgb {
+                r: 0.0,
+                g: 0.0,
+                b: 255.0,
+                icc_profile: None,
+            }),
+        },
+        Op::WriteText {
+            items: vec![TextItem::Text(
+                "Text rendered with rendering mode: fill".into(),
+            )],
+            size: Pt(12.0),
+            font: font_id.clone(),
+        },
+        Op::AddLineBreak,
+        Op::SetTextRenderingMode {
+            mode: TextRenderingMode::Stroke,
+        },
+        Op::WriteText {
+            items: vec![TextItem::Text(
+                "Text rendered with rendering mode: stroke".into(),
+            )],
             size: Pt(12.0),
             font: font_id.clone(),
         },
