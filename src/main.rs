@@ -35,6 +35,9 @@ fn main() {
                 icc_profile: None,
             }),
         },
+        Op::SetTextRenderingMode {
+            mode: TextRenderingMode::Fill,
+        },
         Op::WriteText {
             items: vec![TextItem::Text("I'd expect this text to be red!".into())],
             size: Pt(12.0),
