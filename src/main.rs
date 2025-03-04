@@ -17,7 +17,11 @@ fn main() {
     let page1_contents = vec![
         Op::SetLineHeight { lh: Pt(12.0) },
         Op::SetTextCursor { pos: text_pos },
-				// Red Text
+        Op::SetFontSize {
+            size: Pt(12.0),
+            font: font_id.clone(),
+        },
+        // Red Text
         Op::SetFillColor {
             col: color::Color::Rgb(Rgb {
                 r: 1.0,
@@ -41,7 +45,6 @@ fn main() {
             items: vec![TextItem::Text(
                 "Text rendered with rendering mode: fill".into(),
             )],
-            size: Pt(12.0),
             font: font_id.clone(),
         },
         Op::AddLineBreak,
@@ -52,12 +55,10 @@ fn main() {
             items: vec![TextItem::Text(
                 "Text rendered with rendering mode: stroke".into(),
             )],
-            size: Pt(12.0),
             font: font_id.clone(),
         },
-
-				// Blue Text
-				Op::AddLineBreak,
+        // Blue Text
+        Op::AddLineBreak,
         Op::SetFillColor {
             col: color::Color::Rgb(Rgb {
                 r: 0.0,
@@ -74,14 +75,13 @@ fn main() {
                 icc_profile: None,
             }),
         },
-				Op::SetTextRenderingMode {
-					mode: TextRenderingMode::Fill,
-			},
+        Op::SetTextRenderingMode {
+            mode: TextRenderingMode::Fill,
+        },
         Op::WriteText {
             items: vec![TextItem::Text(
                 "Text rendered with rendering mode: fill".into(),
             )],
-            size: Pt(12.0),
             font: font_id.clone(),
         },
         Op::AddLineBreak,
@@ -92,7 +92,6 @@ fn main() {
             items: vec![TextItem::Text(
                 "Text rendered with rendering mode: stroke".into(),
             )],
-            size: Pt(12.0),
             font: font_id.clone(),
         },
     ];
@@ -103,8 +102,10 @@ fn main() {
     };
 
     let page1 = PdfPage::new(Mm(210.0), Mm(297.0), page1_contents);
-		let mut warnings = vec![];
-    let pdf_bytes: Vec<u8> = doc.with_pages(vec![page1]).save(&save_options, &mut warnings);
-		dbg!(warnings);
+    let mut warnings = vec![];
+    let pdf_bytes: Vec<u8> = doc
+        .with_pages(vec![page1])
+        .save(&save_options, &mut warnings);
+    dbg!(warnings);
     fs::write("./repro.pdf", pdf_bytes).unwrap();
 }
