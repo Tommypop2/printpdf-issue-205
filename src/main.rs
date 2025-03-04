@@ -6,7 +6,7 @@ fn main() {
     let mut doc = PdfDocument::new("My first PDF");
 
     let helvetica_bytes = include_bytes!("../fonts/Helvetica.ttf");
-    let font = ParsedFont::from_bytes(helvetica_bytes, 33, &mut vec![]).unwrap();
+    let font = ParsedFont::from_bytes(helvetica_bytes, 12, &mut vec![]).unwrap();
     let font_id = doc.add_font(&font);
 
     let text_pos = Point {
@@ -15,6 +15,7 @@ fn main() {
     }; // from bottom left
 
     let page1_contents = vec![
+        Op::StartTextSection,
         Op::SetLineHeight { lh: Pt(12.0) },
         Op::SetTextCursor { pos: text_pos },
         Op::SetFontSize {
