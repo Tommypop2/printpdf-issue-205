@@ -20,7 +20,7 @@ fn main() {
 				// Red Text
         Op::SetFillColor {
             col: color::Color::Rgb(Rgb {
-                r: 255.0,
+                r: 1.0,
                 g: 0.0,
                 b: 0.0,
                 icc_profile: None,
@@ -28,7 +28,7 @@ fn main() {
         },
         Op::SetOutlineColor {
             col: color::Color::Rgb(Rgb {
-                r: 255.0,
+                r: 1.0,
                 g: 0.0,
                 b: 0.0,
                 icc_profile: None,
@@ -62,7 +62,7 @@ fn main() {
             col: color::Color::Rgb(Rgb {
                 r: 0.0,
                 g: 0.0,
-                b: 255.0,
+                b: 1.0,
                 icc_profile: None,
             }),
         },
@@ -70,10 +70,13 @@ fn main() {
             col: color::Color::Rgb(Rgb {
                 r: 0.0,
                 g: 0.0,
-                b: 255.0,
+                b: 1.0,
                 icc_profile: None,
             }),
         },
+				Op::SetTextRenderingMode {
+					mode: TextRenderingMode::Fill,
+			},
         Op::WriteText {
             items: vec![TextItem::Text(
                 "Text rendered with rendering mode: fill".into(),
@@ -100,6 +103,8 @@ fn main() {
     };
 
     let page1 = PdfPage::new(Mm(210.0), Mm(297.0), page1_contents);
-    let pdf_bytes: Vec<u8> = doc.with_pages(vec![page1]).save(&save_options, &mut vec![]);
+		let mut warnings = vec![];
+    let pdf_bytes: Vec<u8> = doc.with_pages(vec![page1]).save(&save_options, &mut warnings);
+		dbg!(warnings);
     fs::write("./repro.pdf", pdf_bytes).unwrap();
 }
