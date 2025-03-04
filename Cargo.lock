@@ -1198,7 +1198,7 @@ checksum = "925383efa346730478fb4838dbe9137d2a47675ad789c546d150a6e1dd4ab31c"
 [[package]]
 name = "printpdf"
 version = "0.8.0"
-source = "git+https://github.com/fschutt/printpdf#43de8405c9773578e54ba0fabd0da634858166ef"
+source = "git+https://github.com/fschutt/printpdf#ac372c67a1b232d834ed38b969a4094acbda235e"
 dependencies = [
  "allsorts",
  "azul-core",
